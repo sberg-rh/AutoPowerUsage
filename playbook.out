@@ -1,0 +1,57 @@
+[laptop PRO3X]$ ansible-playbook --e "pdu=10.27.242.2 sut=192.168.0.122 runtime=60 interval=5 outlet=3 outfile=3rd.log" ./3rd_test.yml 
+[WARNING]: provided hosts list is empty, only localhost is available. Note that
+the implicit localhost does not match 'all'
+
+PLAY [localhost] ***************************************************************
+
+TASK [Verify all req'd extra-vars are defined] *********************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [add_host] ****************************************************************
+changed: [localhost]
+
+PLAY [sut_host] ****************************************************************
+
+TASK [set root password] *******************************************************
+ok: [192.168.0.122]
+
+TASK [Run Workload] ************************************************************
+changed: [192.168.0.122]
+
+PLAY [localhost] ***************************************************************
+
+TASK [Start power monitoring script as async task] *****************************
+changed: [localhost]
+
+TASK [Get power script PID] ****************************************************
+changed: [localhost]
+
+TASK [DEBUG] *******************************************************************
+ok: [localhost] => {
+    "msg": "testJan26.py with PID 356099 found"
+}
+
+TASK [PAUSE until Workload (SUT async task) $runtime is met] *******************
+Pausing for 60 seconds
+(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+ok: [localhost]
+
+TASK [Kill power script PID with SIGINT] ***************************************
+changed: [localhost]
+
+TASK [DEBUG] *******************************************************************
+ok: [localhost] => {
+    "msg": "PID 356099 testJan26.py killed"
+}
+
+TASK [Save pwr_script output to logfile] ***************************************
+ok: [localhost] => {
+    "msg": "Output written to file 3rd.log. DONE"
+}
+
+PLAY RECAP *********************************************************************
+192.168.0.122              : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
