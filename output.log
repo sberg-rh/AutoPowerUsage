@@ -1,0 +1,40 @@
+Monitoring Outlet number: 3. Pausing 5 seconds between readings
+Hit Control-C to end
+
+  Outlet# 3 Sample# 1
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 2
+    Power:    118.0 W
+
+  Outlet# 3 Sample# 3
+    Power:    118.0 W
+
+  Outlet# 3 Sample# 4
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 5
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 6
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 7
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 8
+    Power:    117.0 W
+
+  Outlet# 3 Sample# 9
+    Power:    118.0 W
+
+  Outlet# 3 Sample# 10
+    Power:    117.0 W
+
+Interrupted!
+SUMMARY REPORT
+  Number of samples: 10
+  Sample interval(in sec): 5
+  Total runtime(in sec): 58.2
+  Average Probe time(in sec): 1.09
+  Average Reading(in Watts): 117.30
