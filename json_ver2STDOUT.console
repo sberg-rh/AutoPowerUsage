@@ -1,0 +1,10 @@
+$ ./json_ver2.py --ip 10.27.242.2 --interval 5 --outlet 3
+Monitoring Outlet number: 3. Pausing 5 seconds between readings
+Hit Control-C <SIGINT> to end
+
+  Outlet# 3 Sample# 1
+  Outlet# 3 Sample# 2
+  Outlet# 3 Sample# 3
+^CInterrupted!
+Wrote file: Results_2024-01-31T10:58:06.json
+  
