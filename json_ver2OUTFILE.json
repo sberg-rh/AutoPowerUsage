@@ -1,0 +1,42 @@
+$ cat Results_2024-01-31T10\:58\:06.json 
+{
+    "start_ts": "2024-01-31T10:58:06",
+    "test_type": "power-usage",
+    "test_config": {
+        "pdu_ip": "10.27.242.2",
+        "interval": "5",
+        "outlet": "3"
+    },
+    "test_results": [
+        {
+            "sample": 1,
+            "test_sample": {
+                "timestamp": "2024-01-31T10:58:07",
+                "outlet": "3",
+                "power": 117.0
+            }
+        },
+        {
+            "sample": 2,
+            "test_sample": {
+                "timestamp": "2024-01-31T10:58:12",
+                "outlet": "3",
+                "power": 117.0
+            }
+        },
+        {
+            "sample": 3,
+            "test_sample": {
+                "timestamp": "2024-01-31T10:58:18",
+                "outlet": "3",
+                "power": 117.0
+            }
+        }
+    ],
+    "test_summary": {
+        "numsamples": 3,
+        "total_rt": 13.5,
+        "avg_ptime": 0.85,
+        "avg_power": 117.0
+    }
+}
