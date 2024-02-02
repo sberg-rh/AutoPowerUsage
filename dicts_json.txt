@@ -27,7 +27,8 @@ def init_sumdict(the_loopctr, the_runtime, the_avgPT, the_avgPWR):
 ###########
 def init_cfgdict(the_pduIP, the_interval, the_outlet):
 # testcfg_dict = {
-#     "pdu_ip": <pduIP>,
+#     "device_type": <devtype>,
+#     "device_ip": <devIP>,
 #     "interval": <interval>,
 #     "outlet": <outlet#>
 # }
