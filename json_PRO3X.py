@@ -6,10 +6,10 @@
 # DEPENDENCIES: # python3 -m pip install ??
 #
 # File 'universal_resources.py' required
-# Redfish on PRO3X requires Firmware Version 4.0.21 and later
+# Redfish on PRO3X requires Firmmware Version 4.0.21 and later
 #
 # USAGE:
-# $ ./jsonJan30.py --ip 10.27.242.2 --interval 5 --outlet 3
+# $ ./jsonJanPRO3X.py --ip 10.27.242.2 --interval 5 --outlet 3
 ##############################################################
 
 ##############################################################
