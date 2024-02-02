@@ -1,4 +1,4 @@
-$ ./json_ver2.py --ip 10.27.242.2 --interval 5 --outlet 3
+$ ./json_PRO3X.py --ip 10.27.242.2 --interval 5 --outlet 3
 Monitoring Outlet number: 3. Pausing 5 seconds between readings
 Hit Control-C <SIGINT> to end
 
