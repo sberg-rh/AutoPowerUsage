@@ -1,42 +1,43 @@
-$ cat Results_2024-01-31T10\:58\:06.json 
+[jharriga@jharriga PRO3X]$ cat *.json
 {
-    "start_ts": "2024-01-31T10:58:06",
+    "start_ts": "2024-02-02T14:54:53-UTC",
     "test_type": "power-usage",
     "test_config": {
-        "pdu_ip": "10.27.242.2",
+        "device_type": "PRO3X",
+        "device_ip": "10.27.242.2",
         "interval": "5",
         "outlet": "3"
     },
     "test_results": [
         {
             "sample": 1,
-            "test_sample": {
-                "timestamp": "2024-01-31T10:58:07",
-                "outlet": "3",
-                "power": 117.0
-            }
+            "timestamp": "2024-02-02T14:54:54-UTC",
+            "outlet": "3",
+            "power": 117.0,
+            "probetime": 0.86
         },
         {
             "sample": 2,
-            "test_sample": {
-                "timestamp": "2024-01-31T10:58:12",
-                "outlet": "3",
-                "power": 117.0
-            }
+            "timestamp": "2024-02-02T14:55:00-UTC",
+            "outlet": "3",
+            "power": 118.0,
+            "probetime": 0.91
         },
         {
             "sample": 3,
-            "test_sample": {
-                "timestamp": "2024-01-31T10:58:18",
-                "outlet": "3",
-                "power": 117.0
-            }
+            "timestamp": "2024-02-02T14:55:06-UTC",
+            "outlet": "3",
+            "power": 117.0,
+            "probetime": 0.75
         }
     ],
     "test_summary": {
+        "start_ts": "2024-02-02T14:54:53-UTC",
+        "end_ts": "2024-02-02T14:55:07-UTC",
         "numsamples": 3,
-        "total_rt": 13.5,
-        "avg_ptime": 0.85,
-        "avg_power": 117.0
+        "total_rt": 13.6,
+        "avg_ptime": 0.84,
+        "avg_power": 117.33
     }
 }
+[jharriga@jharriga PRO3X]$ 
