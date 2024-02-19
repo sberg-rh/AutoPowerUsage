@@ -10,10 +10,10 @@
 # Redfish on PRO3X requires Firmware Version 4.0.21 and later
 #
 # USAGE:
-# $ ./json_ver3.py --ip 10.27.242.2 --interval 5 --outlets 3 4 5
-##############################################################
+# $ ./PRO3Xmultiple.py --ip 10.27.242.2 --interval 5 --outlets 3 4 5
+#####################################################################
 
-##############################################################
+#################################################
 # DICTIONARY Format - dicts initialized in main()
 #
 # testrun_dict = {
