@@ -1,6 +1,6 @@
 # PowerUsage
 Collection of scripts for monitoring system power usage  
-Comments in Python comde include USAGE details  
+Comments in Python code include USAGE details  
 
 ## POWER SCRIPTS
 rfChassis.py - probes Redfish URI /redfish/v1/Chassis for PowerConsumedWatts property  
