@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-rfNEWchassis.py
+rfChassis.py
   Gathers the specified power metrics using HP's ilo REST library
   https://github.com/HewlettPackard/python-ilorest-library
   Based on 'examples/Redfish/get_powermetrics_average.py'
@@ -16,18 +16,8 @@ USAGE:   $ <file>.py 10.16.28.89 ADMIN ADMIN
        Required arguments: ipaddr, account, passwd
        Optional arguments: -st <sleepSec> 
 OUTPUT:
-    Read CFG file: rf_properties.cfg
-    Searching for these Properties:
-     ['AverageConsumedWatts', 'IntervalInMin', 'MaxConsumedWatts', 
-      'MinConsumedWatts', 'PowerCapacityWatts', 'PowerOutputWatts', 'BOGUS']
     Chassis Power Data:
-        AverageConsumedWatts 192
-        IntervalInMin 0
-        MaxConsumedWatts 192
-        MinConsumedWatts 192
-        PowerCapacityWatts 2000 2000
-        PowerOutputWatts 88 80
-    Properties skipped or not found = ['BOGUS']
+        PowerConsumedWatts 192
 """
 
 import sys
@@ -58,7 +48,8 @@ def timing_decorator(func):
     return wrapper
 
 @timing_decorator
-def get_chassisPower(_redfishobj, _property_list, _chassis_power_uri):
+def get_chassisPower(_redfishobj, _chassis_power_uri):
+##def get_chassisPower(_redfishobj, _property_list, _chassis_power_uri):
 
 ##    not_found = []              # return list of missing properties
 
@@ -178,28 +169,28 @@ if __name__ == "__main__":
     print(f"CMDLINE args: {ipaddr} {num_samples} {sleep_time}")
 
     # init empty lists
-    property_list = []   
+##    property_list = []          # not used
     telemInfo_list = []  
     dateTime_list = []     
     chassisPower_list = []           # returned from get_chassisPower
     missingProps_list = [] 
-    configFile = 'rf_properties.cfg'    # text file w/properties to log
     readings_list = []            # wattage readings
     ptimes_list = []              # probe timing results
     total_rt = 0                  # Total runtime (in sec)
 
+    ## SKIP
     # Read proprty_list Properties (pwr consumption) from CFG file
-    if os.path.isfile(configFile):
-        with open(configFile) as cfgfile:
-            for line in cfgfile:
-                line = line.strip()           # remove newline
-                property_list.append(line)    # add to property_list
-        cfgfile.close()
-        print(f"\nRead CFG file: {configFile}")
-        print(f"Searching for these Properties:\n {property_list}") 
-    else:
-        print(f"\nERROR unable to open file: {configFile} EXITING\n")
-        sys.exit(1)
+##    if os.path.isfile(configFile):
+##        with open(configFile) as cfgfile:
+##            for line in cfgfile:
+##                line = line.strip()           # remove newline
+##                property_list.append(line)    # add to property_list
+##        cfgfile.close()
+##        print(f"\nRead CFG file: {configFile}")
+##        print(f"Searching for these Properties:\n {property_list}") 
+##    else:
+##        print(f"\nERROR unable to open file: {configFile} EXITING\n")
+##        sys.exit(1)
 
     try:
         # Create a Redfish client object
@@ -241,8 +232,9 @@ if __name__ == "__main__":
 
             # Record probe time for this Sample
             begin_mark = time.perf_counter()
-            chassisPower_list = get_chassisPower(REDFISHOBJ,
-                                                 property_list, cp_uri)
+##            chassisPower_list = get_chassisPower(REDFISHOBJ,
+##                                                 property_list, cp_uri)
+            chassisPower_list = get_chassisPower(REDFISHOBJ, cp_uri)
             end_mark = time.perf_counter()
             probe_rt = round((end_mark - begin_mark), 3)
 
