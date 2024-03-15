@@ -7,7 +7,7 @@ Comments in Python code include USAGE details <br>
 rfChassis.py - probes Redfish URI /redfish/v1/Chassis for PowerConsumedWatts property<br>
 > - rfChassis_STDOUT.txt - sample console output<br>
 
-PRO3Xmultiple.py - probes Redfish URI /redfish/v1/PowerEquipment for per Outlet Wattage used<br>
+PRO3Xmultiple.py - probes Redfish URI /redfish/v1/PowerEquipment for PDU per Outlet Wattage used<br>
 > - PRO3Xdicts_json.txt - additional documentation on dictonary structures<br>
 > - PRO3Xmultiple_OUTFILE.json - sample JSON output file<br>
 
