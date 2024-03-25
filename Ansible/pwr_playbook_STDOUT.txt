@@ -1,4 +1,5 @@
-[laptop PRO3X$ ansible-playbook --e "pdu=10.27.242.2 sut=192.168.0.122 runtime=60 interval=5 outlet=3 outfile=3rd.log" ./3rd_test.yml 
+$ !7120
+ansible-playbook -e "rf=10.26.9.132 sut=10.26.9.131 runtime=60 interval=5 numpar=2" ./playEVP.yml 
 [WARNING]: provided hosts list is empty, only localhost is available. Note that
 the implicit localhost does not match 'all'
 
@@ -13,13 +14,25 @@ ok: [localhost] => {
 TASK [add_host] ****************************************************************
 changed: [localhost]
 
-PLAY [sut_host] ****************************************************************
+PLAY [10.26.9.131] *************************************************************
 
-TASK [set root password] *******************************************************
-ok: [192.168.0.122]
+TASK [set sut_host root password] **********************************************
+ok: [10.26.9.131]
+
+TASK [Record CPU Model] ********************************************************
+changed: [10.26.9.131]
+
+TASK [Record number of CPU cores] **********************************************
+changed: [10.26.9.131]
+
+TASK [Record number of CPU sockets] ********************************************
+changed: [10.26.9.131]
 
 TASK [Run Workload] ************************************************************
-changed: [192.168.0.122]
+changed: [10.26.9.131]
+
+TASK [set sut_host vars from this PLAY for later use] **************************
+ok: [10.26.9.131]
 
 PLAY [localhost] ***************************************************************
 
@@ -31,27 +44,56 @@ changed: [localhost]
 
 TASK [DEBUG] *******************************************************************
 ok: [localhost] => {
-    "msg": "testJan26.py with PID 356099 found"
+    "msg": "rfChassis.py with PID 39630 found"
 }
 
-TASK [PAUSE until Workload (SUT async task) $runtime is met] *******************
-Pausing for 60 seconds
-(ctrl+C then 'C' = continue early, ctrl+C then 'A' = abort)
+TASK [set ansible_job_id from this PLAY for later Cleanup] *********************
 ok: [localhost]
+
+PLAY [10.26.9.131] *************************************************************
+
+TASK [Sleep 'runtime' to allow Workload to complete] ***************************
+changed: [10.26.9.131]
+
+TASK [wait for Workload - async task] ******************************************
+changed: [10.26.9.131]
+
+TASK [set Workload result sut_host var for later use] **************************
+ok: [10.26.9.131]
+
+TASK [Workload cleanup - async task] *******************************************
+ok: [10.26.9.131]
+
+PLAY [localhost] ***************************************************************
 
 TASK [Kill power script PID with SIGINT] ***************************************
 changed: [localhost]
 
 TASK [DEBUG] *******************************************************************
 ok: [localhost] => {
-    "msg": "PID 356099 testJan26.py killed"
+    "msg": "PKILL rfChassis.py killed (pid 39630)"
 }
 
-TASK [Save pwr_script output to logfile] ***************************************
+TASK [Sleep 2s to allow power script to complete writing logfile] **************
+changed: [localhost]
+
+TASK [append cpuinfo and Workload rate to logfile] *****************************
+changed: [localhost]
+
+TASK [wrote pwr_script and SUT Workload output to logfile] *********************
 ok: [localhost] => {
-    "msg": "Output written to file 3rd.log. DONE"
+    "msg": "Output written to file 2_test.log"
+}
+
+TASK [wait for Workload and cleanup - async task] ******************************
+changed: [localhost] => (item=status)
+ok: [localhost] => (item=cleanup)
+
+TASK [logfile written and CLEANUP complete] ************************************
+ok: [localhost] => {
+    "msg": "DONE"
 }
 
 PLAY RECAP *********************************************************************
-192.168.0.122              : ok=2    changed=1    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
-localhost                  : ok=9    changed=4    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+10.26.9.131                : ok=10   changed=6    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+localhost                  : ok=13   changed=7    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
