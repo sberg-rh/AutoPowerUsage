@@ -1,0 +1,76 @@
+CMDLINE args: 10.26.9.132 3 5
+Hit Control-C <SIGINT> to end
+
+
+Sample #1
+time elapsed in getMember_uri: 1
+time elapsed in get_DateTime: 3.59
+DateTime 2024-03-22T19:33:30+00:00
+time elapsed in getMember_uri: 0.663
+Chassis Power Data:
+	 PowerConsumedWatts 216
+time elapsed in get_chassisPower: 3.39
+
+Sample #2
+time elapsed in get_DateTime: 2.85
+DateTime 2024-03-22T19:33:41+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 216
+time elapsed in get_chassisPower: 0.847
+
+Sample #3
+time elapsed in get_DateTime: 1.42
+DateTime 2024-03-22T19:33:49+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 216
+time elapsed in get_chassisPower: 0.506
+
+Sample #4
+time elapsed in get_DateTime: 1.09
+DateTime 2024-03-22T19:33:55+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 217
+time elapsed in get_chassisPower: 0.513
+
+Sample #5
+time elapsed in get_DateTime: 1.01
+DateTime 2024-03-22T19:34:02+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 218
+time elapsed in get_chassisPower: 0.742
+
+Sample #6
+time elapsed in get_DateTime: 1.22
+DateTime 2024-03-22T19:34:09+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 218
+time elapsed in get_chassisPower: 0.561
+
+Sample #7
+time elapsed in get_DateTime: 1.63
+DateTime 2024-03-22T19:34:16+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 217
+time elapsed in get_chassisPower: 1.18
+
+Sample #8
+time elapsed in get_DateTime: 1.59
+DateTime 2024-03-22T19:34:24+00:00
+Chassis Power Data:
+	 PowerConsumedWatts 198
+time elapsed in get_chassisPower: 0.486
+Interrupted!
+Run Summary: 
+> Total Samples: 8
+> MIN Reading: 198.0
+> MAX Reading: 218.0
+> AVG Reading: 214.5
+> AVG Probe Time: 1.03
+> Total Runtime: 61.6
+DONE
+#BEGIN SUT STATS
+"CPU-Model Neoverse-N1"
+"numcores 128"
+"numsockets 1"
+"EVP Rate for -multi 8 : 15006053.99k"
+#END SUT STATS
