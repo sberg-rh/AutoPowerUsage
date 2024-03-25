@@ -1,13 +1,17 @@
 # USAGE: 
-#  $ ansible-playbook -e "rf=<IP1> sut=<IP2> runtime=60 interval=5 numpar=128"
-# STEPS:
-#       Execute workload on SUT as async task
-#       Start power script on localhost as async task
-#       Stop pwr script and report results
-# OUTPUT: '<numpar>_test.log'  contains pwr measurement readings
+#  $ ansible-playbook -e "rf=<IP1> sut=<IP2> runtime=120 interval=5 numpar=128" ./<file>.yml
 #
-# MUST EDIT TO ADD LOGIN CREDENTIALS at lines 43 and 71
-# ENSURE THAT PATH TO {pwr_script} line 67 IS VALID
+# PLAYS:
+#       Localhost: Parse and set cmdline vars
+#       SUT: Start workload on SUT as async task, store cpuinfo vars
+#       Localhost: Start power script as async task
+#       SUT: sleep for 'runtime', poll async-Workload, save SUT-results
+#       Localhost: Stop pwr script, write logfile, append SUT-results
+#
+# NOTE: jobfiles for both async tasks (SUT & localhost) are manually
+#       cleaned up with use of 'async-status': mode 'cleanup'.
+# SUT Server login credentials are set in PLAY 2 
+# Redfish Server login credentials are set in PLAY 3 
 ############################################################################
 ---
 # PLAY 1: Start with some housekeeping tasks
@@ -24,38 +28,58 @@
           - interval != ""
           - numpar != ""
 
+#    - name: Set runtime to int value for use in math ops
+#      ansible.builtin.set_fact:
+#         runtime_int: runtime | int
+
 # Workaround to utilize 'sut' var as host
     - add_host:
-        hostname: "{{ sut }}"
-        group: sut_host
+        name: "{{ sut }}"
 
 # PLAY 2: Start workload on SUT
 # NOTE: this workload does not represent a fixed amount of compute work
 #   SO not a good basis for normalizing results across varying cpu's
 # Start workload on SUT (server under test) as async task
-- hosts: sut_host
+#- hosts: sut_host
+- hosts: "{{ sut }}"
   remote_user: root
   become: false
   gather_facts: false
 # Pad asynctime for Workload to ensure adequate wall clocktime
   vars:
     asynctime: "{{ (runtime * 2)|int|abs }}"
-    ansible_python_interpreter: /usr/bin/python3
-    ROOT_PASSWORD: <FILL THIS IN>
+    ROOT_PASSWORD: 100yard-
   tasks:
     - name: set sut_host root password
       set_fact:
         ansible_password: "{{ ROOT_PASSWORD }}"
 
+    - name: Record CPU Model
+      shell: lscpu | awk '/^Model name:/{print $3}'
+      register: cpumodel
+
+    - name: Record number of CPU cores
+      shell: lscpu | awk '/^CPU\(s\):/{print $2}'
+      register: numcores
+
+    - name: Record number of CPU sockets
+      shell: lscpu | awk '/^Socket\(s\):/{print $2}'
+      register: numsockets
+
     - name: Run Workload
-#      Requires gather_facts
-#      command: openssl speed -evp sha256 -seconds "{{ runtime }}" -async_jobs "{{ ansible_processor_nproc }}"
-#
+#      Requires gather_facts to dynamically set {{ numpar }}
 # Specify -bytes' to ensure runtime (only one is performed)
-      command: openssl speed -evp sha256 -bytes 16384 -seconds "{{ runtime }}" -multi "{{ numpar }}"
+#      command: openssl speed -evp sha256 -bytes 16384 -seconds "{{ runtime }}" -multi "{{ numpar }}"
+      shell: openssl speed -evp sha256 -bytes 16384 -seconds "{{ runtime }}" -multi "{{ numpar }}" 2>/dev/null | tail -1 | awk '{print $2}'
       async: "{{ asynctime }}"
       poll: 0
       register: workload
+
+    - name: set sut_host vars from this PLAY for later use
+      set_fact:
+        cpu_model: "{{ cpumodel.stdout }}"
+        num_cores: "{{ numcores.stdout }}"
+        num_sockets: "{{ numsockets.stdout }}"
 
 # PLAY 3: Start pwr monitoring script on localhost as async task
 - hosts: localhost
@@ -67,17 +91,16 @@
     asynctime: "{{ (runtime * 2)|int|abs }}"
     pwr_script: rfChassis.py
     rfSvr: "{{ rf }}"
+    rfUser: "root"
+    rfPasswd: "100yard-"
     outfile: "{{ numpar }}_test.log"
-    rfUser: root
-    rfPasswd: <FILL THIS IN>
 
   tasks:
     - name: Start power monitoring script as async task
-#      command: "../{{ pwr_script }} --ip {{ pdu }} --interval {{ interval }} --outlet {{ outlet }}"
-      shell: "../{{ pwr_script }} {{ rfSvr }} {{ rfUser }} {{ rfPasswd } > {{ outfile }}"
+      shell: "./{{ pwr_script }} {{ rfSvr }} {{ rfUser }} {{ rfPasswd }} > {{ outfile }}"
       async: "{{ asynctime }}"
       poll: 0
-#      register: pwr_monitor
+      register: pwr_monitor
     
 # Verify pwr_script is running before moving forward (pgrep)
     - name: Get power script PID
@@ -88,19 +111,92 @@
       ansible.builtin.debug:
         msg: "{{ pwr_script }} with PID {{ pwr_pid.stdout }} found"
 
-# Wait on Workload (SUT async task), then kill pwr script (pkill)
-#   and record power usage results
-    - name: PAUSE until Workload (SUT async task) $runtime is met
-      ansible.builtin.pause:
-        seconds: "{{ runtime }}"
+    - name: set ansible_job_id from this PLAY for later Cleanup
+      set_fact:
+        pwrmon_jid: "{{ pwr_monitor.ansible_job_id }}"
+        
+###########
+# PLAY 4: SUT wait for Workload (async) to complete
+- hosts: "{{ sut }}"
+  remote_user: root
+  become: false
+  gather_facts: false
+  vars:
+    ROOT_PASSWORD: 100yard-
+  tasks:
+    - name: Sleep 'runtime' to allow Workload to complete
+      command: "sleep {{ runtime }}"
+ 
+    - name: wait for Workload - async task
+      ansible.builtin.async_status:
+        jid: "{{ hostvars[sut].workload.ansible_job_id }}"
+        mode: status
+      register: async_job
+      until: async_job.finished
+      retries: 10
+      delay: 1
 
+#    - name: DEBUG
+#      ansible.builtin.debug:
+#              msg: "async_job contains: {{ async_job }}"
+
+    - name: set Workload result sut_host var for later use
+      set_fact:
+        workload_stdout: "{{ async_job.stdout }}"
+
+    - name: Workload cleanup - async task
+      ansible.builtin.async_status:
+        jid: "{{ hostvars[sut].workload.ansible_job_id }}"
+        mode: cleanup
+
+# PLAY 5: SUT Workload complete, kill pwr script and record results
+- hosts: localhost
+  become: false
+  gather_facts: false
+  vars:
+    pwr_script: rfChassis.py
+    outfile: "{{ numpar }}_test.log"
+  tasks:
     - name: Kill power script PID with SIGINT
-      command: "pkill -SIGINT {{ pwr_script }}"
+      command: "pkill -e -SIGINT {{ pwr_script }}"
+      register: pkill_res
       
     - name: DEBUG
       ansible.builtin.debug:
-        msg: "PID {{ pwr_pid.stdout }} {{ pwr_script }} killed"
+        msg: "PKILL {{ pkill_res.stdout }}"
 
-    - name: Save pwr_script output to logfile
+    - name: Sleep 2s to allow power script to complete writing logfile
+      command: "sleep 2"
+      
+    - name: append cpuinfo and Workload rate to logfile
+      ansible.builtin.blockinfile:
+        path: "{{ outfile }}"
+        create: no
+        insertafter: EOF
+        marker: "#{mark} SUT STATS"
+        block: |
+          "CPU-Model {{ hostvars[sut].cpu_model }}"
+          "numcores {{ hostvars[sut].num_cores }}"
+          "numsockets {{ hostvars[sut].num_sockets }}"
+          "EVP Rate for -multi {{ numpar }} : {{ hostvars[sut].workload_stdout }}"
+      
+    - name: wrote pwr_script and SUT Workload output to logfile
       ansible.builtin.debug:
-        msg: "Output written to file {{ outfile }}. DONE"
+        msg: "Output written to file {{ outfile }}"
+
+# CLEANUP async task manually: power_script (localhost)
+    - name: wait for Workload and cleanup - async task
+      ansible.builtin.async_status:
+        jid: "{{ pwrmon_jid }}"
+        mode: '{{ item }}'
+      register: job
+      until: job.finished or (job.erased is defined)
+      retries: 5
+      delay: 1
+      loop:
+        - 'status'
+        - 'cleanup'
+
+    - name: logfile written and CLEANUP complete
+      ansible.builtin.debug:
+        msg: "DONE"
