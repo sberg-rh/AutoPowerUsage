@@ -1,5 +1,5 @@
 # Required EDITS to pwr_playbook.yaml
-## MUST EDIT TO ADD LOGIN CREDENTIALS at lines 51 and 94
+## MUST EDIT TO ADD LOGIN CREDENTIALS at lines 51 and 94 and 125
 ## ENSURE THAT PATH TO {pwr_script} line 92 IS VALID
 
 # Sample Usage
