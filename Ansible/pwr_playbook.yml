@@ -66,6 +66,10 @@
       shell: lscpu | awk '/^Socket\(s\):/{print $2}'
       register: numsockets
 
+    - name: Record Linux kernel version
+      shell: uname -r
+      register: kversion
+
     - name: Run Workload
 #      Requires gather_facts to dynamically set {{ numpar }}
 # Specify -bytes' to ensure runtime (only one is performed)
@@ -80,6 +84,7 @@
         cpu_model: "{{ cpumodel.stdout }}"
         num_cores: "{{ numcores.stdout }}"
         num_sockets: "{{ numsockets.stdout }}"
+        k_version: "{{ kversion.stdout }}"
 
 # PLAY 3: Start pwr monitoring script on localhost as async task
 - hosts: localhost
@@ -175,6 +180,7 @@
         insertafter: EOF
         marker: "#{mark} SUT STATS"
         block: |
+          "kernel-version {{ hostvars[sut].k_version }}"
           "CPU-Model {{ hostvars[sut].cpu_model }}"
           "numcores {{ hostvars[sut].num_cores }}"
           "numsockets {{ hostvars[sut].num_sockets }}"
