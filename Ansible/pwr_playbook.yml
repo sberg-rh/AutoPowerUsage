@@ -55,7 +55,9 @@
         ansible_password: "{{ ROOT_PASSWORD }}"
 
     - name: Record CPU Model
-      shell: lscpu | awk '/^Model name:/{print $3}'
+      shell: 
+        cmd: |
+          lscpu | grep '^Model name:' | sed -r 's/^Model name:[ /t]*//'
       register: cpumodel
 
     - name: Record number of CPU cores
