@@ -145,9 +145,9 @@
           pgrep {{ pwr_script }}
       register: pwr_pid
 
-#    - name: DEBUG
-#      ansible.builtin.debug:
-#        msg: "{{ pwr_script }} with PID {{ pwr_pid.stdout }} found"
+    - name: DEBUG
+      ansible.builtin.debug:
+        msg: "{{ pwr_script }} with PID {{ pwr_pid.stdout }} found"
 
     - name: set ansible_job_id from this PLAY for later Cleanup
       set_fact:
