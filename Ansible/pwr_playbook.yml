@@ -145,7 +145,7 @@
           pgrep {{ pwr_script }}
       register: pwr_pid
 
-    - name: DEBUG
+    - name: print pwr_pid
       ansible.builtin.debug:
         msg: "{{ pwr_script }} with PID {{ pwr_pid.stdout }} found"
 
