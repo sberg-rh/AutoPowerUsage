@@ -15,3 +15,6 @@ universal_resources.py - function definitions required by PRO3Xmultiple.py<br>
 <br>
 Ansible/ - folder with playbook and supporting scripts.<br>
 > - Coordinates Power Script and Workload processes<br> 
+
+## Kepler Scripts
+see Kepler/README.md
