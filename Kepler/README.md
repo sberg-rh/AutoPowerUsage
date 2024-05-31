@@ -1,10 +1,10 @@
 # Scripts for working with Kepler
 * testKepler.sh - executes workload phases, restarting kepler service prior to each one. Records 'curl' payloads and emits key metric readings to stdout along with Results directory.
-* USAGE: ./testKepler.sh -r $resdir -t $runtime -n $numcpus
+* USAGE: ./testKepler.sh -r ${resdir} -t ${runtime} -n ${numcpus}
 * EXAMPLE: ./testKepler.sh -r TEST600run2 -t 600 -n 4
 * From the code comments:  
 Run the workloads declared in $workload_arr and record KEPLER Metrics after
-each stage. The default workloads are:  
+each stage. The default workload stages are:  
 STAGE 1: restart.curl  
 STAGE 2: sleep ${runtime}  
 STAGE 3: sysbench cpu run --time ${runtime} --threads=${numcpus}  
