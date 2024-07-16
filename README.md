@@ -19,5 +19,5 @@ Ansible/ - folder with playbook and supporting scripts.<br>
 ## Kepler Scripts
 see Kepler/README.md
 
-## Perf Co-Pilot Files
+## Performance Co-Pilot Files
 see PCP/README.md
