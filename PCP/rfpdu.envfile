@@ -1,0 +1,9 @@
+RFip1=10.27.242.11
+RFip2=10.27.242.12
+RFuser=labuser
+RFpasswd=100Yard-
+RFurl1=/redfish/v1/PowerEquipment/RackPDUs/1/Outlets/17
+RFurl2=/redfish/v1/PowerEquipment/RackPDUs/1/Outlets/17
+RFmetric=ApparentVA
+RFoutfile=/tmp/openmetrics_RFpdu.txt
+

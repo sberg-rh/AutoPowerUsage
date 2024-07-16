@@ -1,0 +1,12 @@
+[Unit]
+Description=”Timer for reading Redfish Chassis power usage metrics”
+Requires=rfchassis.service
+
+[Install]
+WantedBy=timers.target
+
+[Timer]
+AccuracySec=1ms
+OnActiveSec=30s
+OnUnitActiveSec=30s
+

@@ -1,0 +1,11 @@
+[Unit]
+Description="Retrieve PDU power usage using Redfish: PDU1 & PDU2"
+Wants=rfpdu.timer
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/systemd/system/rfpdu.envfile
+ExecStartPre=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip1}${RFurl1} | jq | awk -v id="pdu1" -f /etc/systemd/system/rfpdu.awk>${RFoutfile}'
+ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip2}${RFurl2} | jq | awk -v id="pdu2" -f /etc/systemd/system/rfpdu.awk>${RFoutfile}'
+RemainAfterExit=true
+ExecStopPost=/bin/sh -c '/usr/bin/rm ${RFoutfile}'

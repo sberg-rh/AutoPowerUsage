@@ -1,0 +1,7 @@
+RFip=10.26.9.88
+RFuser=root
+RFpasswd=100yard-
+RFurl=/redfish/v1/Chassis/System.Embedded.1/Power
+RFmetric=PowerConsumed
+RFoutfile=/tmp/openmetrics_RFchassis.txt
+
