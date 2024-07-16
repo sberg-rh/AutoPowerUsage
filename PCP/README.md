@@ -7,7 +7,10 @@
 >   * rfchassis.envfile
 >   * rfpdu.envfile
 >
-All these files should be put under /etc/systemd/system. \
+All these files should be put under /etc/systemd/system, \
+and owned by root. Also be sure to set '*.awk' as executable:
+* 'sudo chmod 755 *.awk'
+>
 Then load the new services and activate them:  
 * 'sudo systemctl daemon-reload'  
 * 'sudo systemctl start|stop|enable|disable ...'  
