@@ -2,6 +2,6 @@
 ## Systemd/
 > Two new systemd services
 > 1) rfchassis - retrieves Redfish metrics from Chassis endpoint
-> 2) rfpdu - retrieves Redfish metrics from smartPDUs
-*see Systemd/README.md*  
+> 2) rfpdu - retrieves Redfish metrics from smartPDUs  
+**see Systemd/README.md**  
  
