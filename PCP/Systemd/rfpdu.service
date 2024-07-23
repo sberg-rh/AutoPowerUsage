@@ -5,7 +5,7 @@ Wants=rfpdu.timer
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/systemd/system/rfpdu.envfile
-ExecStartPre=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip1}${RFurl1} | jq | awk -v id="pdu1" -f /etc/systemd/system/rfpdu.awk>${RFoutfile}'
-ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip2}${RFurl2} | jq | awk -v id="pdu2" -f /etc/systemd/system/rfpdu.awk>>${RFoutfile}'
+ExecStartPre=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip1}${RFurl1} | jq | awk -f /etc/systemd/system/rfpdu.awk>${RFoutfile1}'
+ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip2}${RFurl2} | jq | awk -f /etc/systemd/system/rfpdu.awk>>${RFoutfile2}'
 RemainAfterExit=true
-ExecStopPost=/bin/sh -c '/usr/bin/rm ${RFoutfile}'
+ExecStopPost=/bin/sh -c '/usr/bin/rm ${RFoutfile1} ${RFoutfile2}'
