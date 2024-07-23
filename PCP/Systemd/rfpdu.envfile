@@ -5,5 +5,5 @@ RFpasswd=100Yard-
 RFurl1=/redfish/v1/PowerEquipment/RackPDUs/1/Outlets/17
 RFurl2=/redfish/v1/PowerEquipment/RackPDUs/1/Outlets/17
 RFmetric=ApparentVA
-RFoutfile=/tmp/openmetrics_RFpdu.txt
-
+RFoutfile1=/tmp/openmetrics_RFpdu1.txt
+RFoutfile2=/tmp/openmetrics_RFpdu2.txt
