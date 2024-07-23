@@ -7,7 +7,7 @@
 >   * rfchassis.envfile
 >   * rfpdu.envfile
 >
-All these files should be put under /etc/systemd/system, \
+All these files should be moved under /etc/systemd/system, \
 and owned by root. Also be sure to set '*.awk' as executable:
 * 'sudo chmod 755 *.awk'
 >
