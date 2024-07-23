@@ -12,4 +12,5 @@
 > 1) RFchassis.url
 > 2) RFpdu1.url
 > 3) RFpdu2.url
+>    
 **These can be verified using '$pminfo openmetrics | grep watts'
