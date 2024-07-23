@@ -6,7 +6,7 @@
 **see Systemd/README.md**  
  
 ## URL Files
-> These files extend the openmetrics PDMA to access the Redfish metric files, which
+> These files extend the openmetrics PDMA to access the Redfish metrics, which
 > are written by the two new systemd services.
 > The URL files should be copied to /var/lib/pcp/pmdas/openmetrics/config.d
 > 1) RFchassis.url
