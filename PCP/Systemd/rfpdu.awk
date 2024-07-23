@@ -1,4 +1,4 @@
 #!/usr/bin/awk -f
 
-/ApparentVA/ {printf "watts %s %.1f\n", id, $2}
+/ApparentVA/ {printf "watts %.1f\n", $2}
 
