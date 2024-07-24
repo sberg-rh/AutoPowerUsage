@@ -5,5 +5,5 @@ Wants=rfpdu.timer
 [Service]
 Type=oneshot
 EnvironmentFile=/etc/systemd/system/rfpdu.envfile
-ExecStartPre=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip1}${RFurl1} | jq | awk -f /etc/systemd/system/rfpdu.awk>${RFoutfile1}'
-ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip2}${RFurl2} | jq | awk -f /etc/systemd/system/rfpdu.awk>>${RFoutfile2}'
+ExecStartPre=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip1}${RFurl1} | jq | /etc/systemd/system/rfpdu.awk>${RFoutfile1}'
+ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip2}${RFurl2} | jq | /etc/systemd/system/rfpdu.awk>${RFoutfile2}'
