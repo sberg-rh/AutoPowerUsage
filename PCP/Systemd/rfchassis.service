@@ -6,5 +6,3 @@ Wants=rfchassis.timer
 Type=oneshot
 EnvironmentFile=/etc/systemd/system/rfchassis.envfile
 ExecStart=/bin/sh -c '/usr/bin/curl -kfsS https://${RFuser}:${RFpasswd}@${RFip}${RFurl} | jq | /etc/systemd/system/rfchassis.awk>${RFoutfile}'
-RemainAfterExit=true
-ExecStopPost=/bin/sh -c '/usr/bin/rm ${RFoutfile}'
