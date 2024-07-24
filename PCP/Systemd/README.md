@@ -16,6 +16,6 @@ Then load the new services and activate them:
 * 'sudo systemctl start|stop rfchassis.timer'
 * 'sudo systemctl start|stop rfpdu.timer'
 >
-> To verify:  
+To verify:  
 * 'fswatch -t /tmp/openmetrics_RFchassis.txt'  
 * 'fswatch -t /tmp/openmetrics_RFpdu.txt'  
