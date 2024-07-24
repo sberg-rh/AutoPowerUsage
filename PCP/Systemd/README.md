@@ -10,7 +10,12 @@
 All these files should be moved under /etc/systemd/system, \
 and owned by root. Also be sure to set '*.awk' as executable:
 * 'sudo chmod 755 *.awk'
->
+>  
 Then load the new services and activate them:  
 * 'sudo systemctl daemon-reload'  
-* 'sudo systemctl start|stop|enable|disable ...'  
+* 'sudo systemctl start|stop rfchassis.timer'
+* 'sudo systemctl start|stop rfpdu.timer'
+>
+> To verify:  
+* 'fswatch -t /tmp/openmetrics_RFchassis.txt'  
+* 'fswatch -t /tmp/openmetrics_RFpdu.txt'  
