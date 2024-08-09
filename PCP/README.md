@@ -15,3 +15,5 @@
 **These can be verified and Readings viewed**  
 > $ pminfo openmetrics | grep watts  
 > $ pmrep openmetrics.RFchassis openmetrics.RFpdu1 openmetrics.RFpdu2  
+
+For more info on PCP PMDA-OPENMETRICS see the man page
