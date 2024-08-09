@@ -8,12 +8,12 @@
 > 1) Redfish device IP addresses
 > 2) Redfish server User account name and password
 > 3) Redfish URLs for both Chassis Power and Smart PDU readings 
-> 
-> The files should be copied to the '/var/lib/pcp/pmdas/openmetrics/config.d'
-> directory and the '.sh' files should be made executable
+
+The files should be copied to the '/var/lib/pcp/pmdas/openmetrics/config.d'
+directory and the '.sh' files should be made executable  
 >    
-**These can be verified and Readings viewed**  
+**The Metrics can be verified and the Readings viewed**  
 > $ pminfo openmetrics | grep watts  
 > $ pmrep openmetrics.RFchassis openmetrics.RFpdu1 openmetrics.RFpdu2  
 
-For more info on PCP PMDA-OPENMETRICS see the man page
+For more info on PMDA-OPENMETRICS see the man page
