@@ -9,11 +9,16 @@
 > 2) Redfish server User account name and password
 > 3) Redfish URLs for both Chassis Power and Smart PDU readings 
 
-The files should be copied to the '/var/lib/pcp/pmdas/openmetrics/config.d'
+After editing the 'RFvars.cfg' file with your local Redfish server info, the  
+files should be copied to the '/var/lib/pcp/pmdas/openmetrics/config.d'  
 directory and the '.sh' files should be made executable  
 >    
 **The Metrics can be verified and the Readings viewed**  
 > $ pminfo openmetrics | grep watts  
+> openmetrics.RFpdu2.watts  
+> openmetrics.RFchassis.watts  
+> openmetrics.RFpdu1.watts  
+>
 > $ pmrep openmetrics.RFchassis openmetrics.RFpdu1 openmetrics.RFpdu2  
 
 For more info on PMDA-OPENMETRICS see the man page
