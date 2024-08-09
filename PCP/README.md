@@ -1,17 +1,16 @@
 # Files and scripts useful for Perf Co-Pilot and power usage metrics
-## Systemd/  
-**Two new systemd services**  
-> 1) rfchassis - retrieves Redfish metrics from Chassis endpoint
-> 2) rfpdu - retrieves Redfish metrics from smartPDUs  
-**see Systemd/README.md**  
  
-## Openmetrics/  
-**Openmetrics PDMA Files**
-> These files extend the openmetrics PDMA to access the Redfish metrics, which
+**Openmetrics PMDA Files**
+> These files extend the openmetrics PMDA to access the Redfish power usage
+> metrics, freom Chassis and Smart PDUs
+> which
 > are written by the two new systemd services.
-> The URL files should be copied to /var/lib/pcp/pmdas/openmetrics/config.d
-> 1) RFchassis.url
-> 2) RFpdu1.url
-> 3) RFpdu2.url
+> The values in 'RFvars.cfg' must be set for your environment:
+> 1) Redfish device IP addresses
+> 2) Redfish server User account name and password
+> 3) Redfish URLs for both Chassis Power and Smart PDU readings 
+> 
+> The files should be copied to /var/lib/pcp/pmdas/openmetrics/config.d
+> and the '.sh' files should be executable
 >    
 **These can be verified using '$pminfo openmetrics | grep watts'
