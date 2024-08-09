@@ -19,6 +19,11 @@ directory and the '.sh' files should be made executable
 > openmetrics.RFchassis.watts  
 > openmetrics.RFpdu1.watts  
 >
-> $ pmrep openmetrics.RFchassis openmetrics.RFpdu1 openmetrics.RFpdu2  
+> $ pmrep openmetrics.RFchassis openmetrics.RFpdu1 openmetrics.RFpdu2
+>   o.R.watts  o.R.watts  o.R.watts  
+>  
+>    352.000    185.000    179.000  
+>    352.000    186.000    182.000  
+>    352.000    185.000    181.000  
 
 For more info on PMDA-OPENMETRICS see the man page
