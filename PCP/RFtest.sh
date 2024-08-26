@@ -1,5 +1,5 @@
 #!/bin/bash
-# Echo's Redfish Chassis & PDU power readings to screen
+# Echo's Redfish Chassis & PDU power readings to screen, without using Perf CoPilot
 # Requires vars in 'RFvars.cfg' to be configured for URLs and Credentials
 
 while true; do
