@@ -27,3 +27,6 @@ directory and the '.sh' files should be made executable
 >    352.000    185.000    181.000  
 
 For more info on PMDA-OPENMETRICS see the man page
+
+**RFtest.sh is a utility that echoes Redfish Chassis & PDU power readings to screen, without requiring use of Perf CoPilot** 
+> Requires vars in 'RFvars.cfg' to be configured for URLs and Credentials  
