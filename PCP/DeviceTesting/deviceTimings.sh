@@ -26,7 +26,7 @@ for delay in {10, 20, 40, 80}; do
     echo "------------------"
     # Allow PMREP time to write CSV file
     sleep 5
-    if -e $fname
+    if -e $fname then
         echo "Succesfully created $fname"
     else
         echo "Failed to create $fname, exiting"
