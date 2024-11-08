@@ -7,7 +7,7 @@ source /var/lib/pcp/pmdas/openmetrics/config.d/auto_vars.cfg
 
 # Get Readings - PDU1
 curl -kfsS https://${RFpdu_user}:${RFpdu_passwd}@${RFpdu_ip1}${RFpdu_url1} | \
-jq | \
+jq '{PowerWatts: .PowerWatts}' | \
 awk -v str="$RFpdu_metric" '$0~str {
     print("# HELP RFpdus Redfish SmartPDU watts")
     print("# TYPE RFpdus gauge")
