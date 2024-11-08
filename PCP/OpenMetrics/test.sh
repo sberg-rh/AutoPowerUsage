@@ -8,13 +8,13 @@ while true; do
     date
 
     # Get Readings - CHASSIS
-    ./RFchassis.sh
+    #./RFchassis.sh
 
     # Get Readings - PDU1
     ./RFpdu1.sh
 
-    # Get Readings - PDU2
-    ./RFpdu2.sh
+    # Get Readings - RcarS4
+    ./RcarS4.sh
 
     # DELAY
     sleep 5

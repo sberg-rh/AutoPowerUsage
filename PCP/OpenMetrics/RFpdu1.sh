@@ -3,7 +3,7 @@
 # Requires vars in 'RFvars.cfg' to be configured for URLs and Credentials
 
 # VARs - import from CFG file
-source /var/lib/pcp/pmdas/openmetrics/config.d/RFvars.cfg
+source /var/lib/pcp/pmdas/openmetrics/config.d/auto_vars.cfg
 
 # Get Readings - PDU1
 curl -kfsS https://${RFpdu_user}:${RFpdu_passwd}@${RFpdu_ip1}${RFpdu_url1} | \
