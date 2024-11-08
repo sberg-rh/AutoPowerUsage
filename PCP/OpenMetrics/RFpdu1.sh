@@ -1,6 +1,6 @@
 #!/bin/bash
 # Extends openmetrics-pmda to record Redfish Smart PDU power readings
-# Requires vars in 'RFvars.cfg' to be configured for URLs and Credentials
+# Requires vars in 'auto_vars.cfg' to be configured for URLs and Credentials
 
 # VARs - import from CFG file
 source /var/lib/pcp/pmdas/openmetrics/config.d/auto_vars.cfg
