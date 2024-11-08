@@ -10,5 +10,5 @@ ssh root@renesas-rcar-s4-sidekick-$rcar4_number.auto.eng.bos2.dc.redhat.com "std
     awk -v str="$rcar4_metric" '$0~str {
         print("# HELP Rensas R-Car S4 watts")
         print("# TYPE hardware gauge")
-        printf("watts %.1f\n", $3)
+        printf("watts %.1f\n", $11)
 }'"
