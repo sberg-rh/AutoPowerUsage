@@ -10,5 +10,5 @@ ssh sidekick "stdbuf -oL autopowermeter -p /dev/i2c-1" | \
     awk -v str="$rcar4_metric" '$0~str {
         print("# HELP Renesas R-Car S4 watts")
         print("# TYPE hardware gauge")
-        printf("watts %.1f\n", $11)
+        printf("watts %.2f\n", $11)
 }'
